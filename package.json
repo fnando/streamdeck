@@ -1,10 +1,9 @@
 {
   "name": "@fnando/streamdeck",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.1",
   "engines": {
     "node": ">= 16.x"
   },
-  "private": true,
   "description": "A lean framework for developing Elgato Stream Deck plugins.",
   "bin": {
     "streamdeck": "./bin/cli.js"
