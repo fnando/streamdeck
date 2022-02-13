@@ -2,7 +2,7 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
-    "@fnando/streamdeck": "../streamdeck",
+    "@fnando/streamdeck": "*",
     "typescript": "*"
   }
 }
