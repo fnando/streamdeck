@@ -7,6 +7,8 @@
 
 A lean framework for developing Elgato Stream Deck plugins.
 
+https://user-images.githubusercontent.com/3009/153739253-51973586-c278-4104-805c-ae61d534d33c.mp4
+
 ## Installation
 
 To create a new plugin, use the following command:
