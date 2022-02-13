@@ -86,7 +86,70 @@ Options:
 
 ### Plugin structure
 
-To be written.
+```
+$ tree -I node_modules
+.
+├── CHANGELOG.md
+├── CODE_OF_CONDUCT.md
+├── LICENSE.md
+├── README.md
+├── build
+│   └── com.fnando.hello.sdPlugin
+│       ├── css
+│       │   ├── custom.css
+│       │   └── sdpi.css
+│       ├── images
+│       │   ├── actions
+│       │   │   ├── Hello
+│       │   │   │   ├── Key.png
+│       │   │   │   └── Key@2x.png
+│       │   │   ├── Hello.png
+│       │   │   └── Hello@2x.png
+│       │   ├── category.png
+│       │   ├── category@2x.png
+│       │   ├── plugin.png
+│       │   └── plugin@2x.png
+│       ├── inspector.html
+│       ├── inspector.js
+│       ├── inspectors
+│       ├── manifest.json
+│       ├── plugin.html
+│       └── plugin.js
+├── icons.sketch
+├── package-lock.json
+├── package.json
+├── release
+│   └── com.fnando.hello.streamDeckPlugin
+├── src
+│   ├── actions
+│   │   └── Hello.ts
+│   ├── css
+│   │   ├── custom.css
+│   │   └── sdpi.css
+│   ├── images
+│   │   ├── actions
+│   │   │   ├── Hello
+│   │   │   │   ├── Key.png
+│   │   │   │   └── Key@2x.png
+│   │   │   ├── Hello.png
+│   │   │   └── Hello@2x.png
+│   │   ├── category.png
+│   │   ├── category@2x.png
+│   │   ├── embed
+│   │   ├── multiActions
+│   │   ├── plugin.png
+│   │   └── plugin@2x.png
+│   ├── images.json
+│   ├── inspector.html
+│   ├── inspector.ts
+│   ├── inspectors
+│   ├── locales
+│   ├── plugin.ts
+│   └── streamdeck.json
+└── tsconfig.json
+
+18 directories, 40 files
+```
 
 ### Workflow
 
