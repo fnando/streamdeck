@@ -1,11 +1,12 @@
 {
   "name": "@fnando/streamdeck",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "engines": {
     "node": ">= 16.x"
   },
   "files": [
     "dist/**/*",
+    "templates/**/*",
     "README.md",
     "LICENSE.md",
     "CHANGELOG.md"
