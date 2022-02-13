@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "@fnando/streamdeck": "../streamdeck",
+    "typescript": "*"
+  }
+}

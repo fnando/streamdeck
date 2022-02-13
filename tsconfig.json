@@ -1,0 +1,16 @@
+{
+  "extends": "@fnando/codestyle",
+  "include": ["src"],
+  "compilerOptions": {
+    "noEmit": false,
+    "sourceMap": true,
+    "declaration": true,
+    "module": "CommonJS",
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["src/*"]
+    }
+  },
+  "exclude": ["templates/**/*"]
+}
