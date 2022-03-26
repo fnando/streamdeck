@@ -11,6 +11,6 @@ Prefix your message with one of the following:
 - [Security] in case of vulnerabilities.
 -->
 
-## Unreleased
+## v0.1.0-alpha.5
 
-- Initial release.
+- [Fixed] Fix Windows symlinking.
