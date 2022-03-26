@@ -2,13 +2,10 @@ import childProcess from "child_process";
 import fs from "fs";
 import Registry from "rage-edit";
 
+import { die } from "./helpers/die";
+
 interface Params {
   action: string;
-}
-
-function die(message: string) {
-  console.error(message);
-  process.exit(1);
 }
 
 const debuggerUrl = "http://127.0.0.1:23654/";
