@@ -31,7 +31,7 @@
     "lint": "yarn lint:ts && yarn lint:eslint",
     "lint:ts": "tsc --noEmit",
     "lint:eslint": "eslint src --max-warnings 0",
-    "build": "rm -rf dist && webpack"
+    "build": "rm -rf dist && tsc"
   },
   "dependencies": {
     "esbuild": "*",
