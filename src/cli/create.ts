@@ -177,7 +177,7 @@ export function create(params: Params) {
 
   if (params.install) {
     const error =
-      "ERROR: Sorry, there was an error while install dependencies.";
+      "ERROR: Sorry, there was an error while installing dependencies.";
     exec("npm", ["install"], { cwd: destination, error });
   }
 
