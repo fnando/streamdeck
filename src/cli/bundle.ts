@@ -279,7 +279,7 @@ async function compile(distDir: string, params: Params) {
     );
   });
 
-  const filesToCopy = glob.sync(`${sourceDir}/{images,css}/**/*.*`);
+  const filesToCopy = glob.sync(`${sourceDir}/{images,css,previews}/**/*.*`);
 
   filesToCopy.sort();
 
