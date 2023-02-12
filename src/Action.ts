@@ -2,6 +2,7 @@ import { ActionEvents } from "./events";
 import { State, StateProps } from "./State";
 import { Target } from "./Target";
 import type { Plugin } from "./Plugin";
+import { Encoder } from "./Encoder";
 
 /**
  * The Action must match a few files:
@@ -90,6 +91,8 @@ export class Action<
    */
   public device = "";
 
+  public encoder: Encoder = undefined as unknown as Encoder;
+
   constructor(params: {
     name: string;
     inspectorName?: string;
@@ -129,6 +132,8 @@ export class Action<
         this.hasMultiActionSupport === false,
         this.hasMultiActionSupport,
       ],
+      ["Controllers", this.encoder !== undefined, ["KeyPad", "Encoder"]],
+      ["Encoder", this.encoder !== undefined, this.encoder.toManifest()],
     ];
 
     optionals.forEach(([prop, condition, value]) => {
@@ -404,6 +409,36 @@ export class Action<
       context: this.context,
       device: this.device,
       payload: { profile },
+    });
+  }
+
+  /**
+   * Send event to dynamically change properties of the SD+ touch display
+   * @param {Record<string, unknown>} payload Key/Value pairs of properties to
+   *                                          change
+   * @return {void}
+   */
+  public setFeedback(payload: Record<string, unknown>) {
+    this.send({
+      event: "setFeedback",
+      context: this.context,
+      payload,
+    });
+  }
+
+  /**
+   * Send an event to dynamically change the layout of a SD+ touch display
+   * @param {string} layout Internal `id` of built-in layout or path to json
+   *                        file that contains a custom layout
+   * @return {void}
+   */
+  public setFeedbackLayout(layout: string) {
+    this.send({
+      event: "setFeedbackLayout",
+      context: this.context,
+      payload: {
+        layout,
+      },
     });
   }
 }

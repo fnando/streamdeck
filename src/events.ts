@@ -14,6 +14,12 @@ export interface ActionEvent<T = unknown> extends StreamDeckEvent {
   userDesiredState: number;
 }
 
+export interface DialActionEvent<T = unknown> extends StreamDeckEvent {
+  context: string;
+  settings: T;
+  coordinates: { column: number; row: number };
+}
+
 export interface DidReceiveGlobalSettingsEvent<T = unknown> {
   event: string;
   settings: T;
@@ -33,6 +39,9 @@ export type KeyDownEvent<T = unknown> = ActionEvent<T>;
 export type KeyUpEvent<T = unknown> = ActionEvent<T>;
 export type WillAppearEvent<T = unknown> = ActionEvent<T>;
 export type WillDisappearEvent<T = unknown> = ActionEvent<T>;
+export type TouchTapEvent<T = unknown> = DialActionEvent<T> & {tapPos: number[], hold: boolean};
+export type DialPressEvent<T = unknown> = DialActionEvent<T> & {pressed: boolean};
+export type DialRotateEvent<T = unknown> = DialActionEvent<T> & {pressed: boolean, ticks: number} ;
 
 export interface TitleParametersDidChangeEvent<T = unknown>
   extends StreamDeckEvent {
@@ -244,6 +253,33 @@ export class ActionEvents extends Events {
    */
   handleSendToPlugin(event: SendToPluginEvent): void {
     this.debug("Received sendToPlugin event:", event);
+  }
+
+  /**
+   * Handle the touchTap event.
+   * @param {TouchTapEvent} event The event data.
+   * @return {void}
+   */
+  handleTouchTap(event: TouchTapEvent): void {
+    this.debug("Received touchTap event:", event);
+  }
+
+  /**
+   * Handle the dialPress event.
+   * @param {DialPressEvent} event The event data.
+   * @return {void}
+   */
+  handleDialPress(event: DialPressEvent): void {
+    this.debug("Received dialPress event:", event);
+  }
+
+  /**
+   * Handle the dialRotate event.
+   * @param {DialRotateEvent} event The event data.
+   * @return {void}
+   */
+  handleDialRotate(event: DialRotateEvent): void {
+    this.debug("Received dialRotate event:", event);
   }
 }
 
