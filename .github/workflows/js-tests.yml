@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ["16", "17"]
+        node: ["18", "19"]
 
     steps:
       - uses: actions/checkout@v3
@@ -28,7 +28,8 @@ jobs:
         with:
           path: vendor/bundle
           key: >
-            ${{ runner.os }}-${{ matrix.node }}-npm-${{ hashFiles('package.json') }}
+            ${{ runner.os }}-${{ matrix.node }}-npm-${{
+            hashFiles('package.json') }}
 
       - name: Set up Node
         uses: actions/setup-node@v3
