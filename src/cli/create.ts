@@ -72,18 +72,15 @@ function getGitUser(params: Params) {
     const result = exec("git", ["config", "--get", path], {
       error: "",
       cwd: process.cwd(),
+      exitOnError: false,
     });
 
-    return result.stdout.toString("utf-8").trim();
+    return result?.stdout.toString("utf-8").trim();
   };
 
-  const authorName = params.author || gitConfig("user.name");
-  const authorEmail = params.email || gitConfig("user.email");
+  const authorName = params.author || gitConfig("user.name") || "[NAME]";
 
-  return {
-    authorName: authorName || "[NAME]",
-    authorEmail: authorEmail || "[EMAIL]",
-  };
+  return { authorName };
 }
 
 export function create(params: Params) {
@@ -104,18 +101,17 @@ export function create(params: Params) {
   fs.mkdirSync(destination, { recursive: true });
 
   const fileUtils = new FileUtils(destination, templateDir);
-  const { authorName, authorEmail } = getGitUser(params);
+  const { authorName } = getGitUser(params);
   const repo = path.basename(destination);
   const gitUser = params.github || params.gitlab || "[USER]";
   const gitHost = params.gitlab ? "gitlab.com" : "github.com";
   const url = params.url || `https://${gitHost}/${gitUser}/${repo}`;
-  const vars = {
+  const context = {
     year: new Date().getFullYear(),
     id: params.id,
     description: params.description,
     name: params.name,
     authorName,
-    authorEmail,
     repo,
     gitUser,
     gitHost,
@@ -137,14 +133,14 @@ export function create(params: Params) {
   fileUtils.copyFile("src/actions/Hello.ts");
   fileUtils.copyFile("src/plugin.ts");
   fileUtils.copyFile("icons.sketch");
-  fileUtils.template("LICENSE.md", "LICENSE.md", vars);
-  fileUtils.template("CODE_OF_CONDUCT.md", "CODE_OF_CONDUCT.md", vars);
-  fileUtils.template("CHANGELOG.md", "CHANGELOG.md", vars);
+  fileUtils.template("LICENSE.md", "LICENSE.md", context);
+  fileUtils.template("CODE_OF_CONDUCT.md", "CODE_OF_CONDUCT.md", context);
+  fileUtils.template("CHANGELOG.md", "CHANGELOG.md", context);
 
   if (params.gitlab) {
-    fileUtils.template("gitlabREADME.md", "README.md", vars);
+    fileUtils.template("gitlabREADME.md", "README.md", context);
   } else {
-    fileUtils.template("githubREADME.md", "README.md", vars);
+    fileUtils.template("githubREADME.md", "README.md", context);
   }
 
   fileUtils.createFile("release/.keep", "");
