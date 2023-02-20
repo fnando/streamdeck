@@ -47,8 +47,6 @@ const assertImageSize = (name: string, size: number, distDir: string) => {
       false,
       `Expected "src/${name}" to be ${size}x${size} (got ${dimensions.width}x${dimensions.height}).`,
     );
-
-    console.log({ size, dimensions });
   } catch (error) {
     assert(
       false,
