@@ -39,9 +39,17 @@ export type KeyDownEvent<T = unknown> = ActionEvent<T>;
 export type KeyUpEvent<T = unknown> = ActionEvent<T>;
 export type WillAppearEvent<T = unknown> = ActionEvent<T>;
 export type WillDisappearEvent<T = unknown> = ActionEvent<T>;
-export type TouchTapEvent<T = unknown> = DialActionEvent<T> & {tapPos: number[], hold: boolean};
-export type DialPressEvent<T = unknown> = DialActionEvent<T> & {pressed: boolean};
-export type DialRotateEvent<T = unknown> = DialActionEvent<T> & {pressed: boolean, ticks: number} ;
+export type TouchTapEvent<T = unknown> = DialActionEvent<T> & {
+  tapPos: number[];
+  hold: boolean;
+};
+export type DialPressEvent<T = unknown> = DialActionEvent<T> & {
+  pressed: boolean;
+};
+export type DialRotateEvent<T = unknown> = DialActionEvent<T> & {
+  pressed: boolean;
+  ticks: number;
+};
 
 export interface TitleParametersDidChangeEvent<T = unknown>
   extends StreamDeckEvent {
