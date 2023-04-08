@@ -91,7 +91,20 @@ export class Action<
    */
   public device = "";
 
+  /**
+   * Defines how the action interacts with Dial buttons on the SD+
+   * By default this is not set and actions don't list Encoder as a Controller.
+   * @type {Encoder}
+   */
   public encoder: Encoder = undefined as unknown as Encoder;
+
+  /**
+   * Defines if the Action is allowed on a KeyPad button.
+   * `true` by default for backwards compatibility.
+   *
+   * @type {boolean}
+   */
+  public keyPad = true;
 
   constructor(params: {
     name: string;
@@ -120,6 +133,18 @@ export class Action<
       States: this.states.map((s) => s.toManifest()),
     };
 
+    const controllers: string[] = [];
+
+    if (this.encoder !== undefined) {
+      controllers.push("Encoder");
+    }
+
+    if (this.keyPad === true) {
+      controllers.push("KeyPad");
+    }
+
+    snippet.Controllers = controllers as unknown as string[];
+
     const optionals: [string, unknown, unknown][] = [
       [
         "PropertyInspectorPath",
@@ -132,7 +157,7 @@ export class Action<
         this.hasMultiActionSupport === false,
         this.hasMultiActionSupport,
       ],
-      ["Controllers", this.encoder !== undefined, ["KeyPad", "Encoder"]],
+      // ["Controllers", controllers],
       ["Encoder", this.encoder !== undefined, this.encoder.toManifest()],
     ];
 
