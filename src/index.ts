@@ -18,3 +18,5 @@ export * from "./Action";
 export * from "./State";
 export * from "./Inspector";
 export * from "./events";
+export * from "./Encoder";
+export * from "./Layout";
