@@ -106,6 +106,29 @@ export class Action<
    */
   public keyPad = true;
 
+  /**
+   * Boolean to disable the title field for users in the property inspector.
+   * True by default.
+   *
+   * @type {boolean}
+   */
+  public enableUserTitle = true;
+
+  /**
+   * Boolean to hide the action in the actions list. This can be used for a
+   * plugin that only works with a specific profile. True by default.
+   *
+   * @type {boolean}
+   */
+  public isVisibleInActionsList = true;
+
+  /**
+   * Boolean to disable image caching. False by default.
+   *
+   * @type {boolean}
+   */
+  public disableCachingImages = false;
+
   constructor(params: {
     name: string;
     inspectorName?: string;
@@ -159,6 +182,17 @@ export class Action<
       ],
       // ["Controllers", controllers],
       ["Encoder", this.encoder !== undefined, this.encoder.toManifest()],
+      [
+        "UserTitleEnabled",
+        this.enableUserTitle === false,
+        this.enableUserTitle,
+      ],
+      [
+        "VisibleInActionsList",
+        this.isVisibleInActionsList === false,
+        this.isVisibleInActionsList,
+      ],
+      ["DisableCaching", this.disableCachingImages, this.disableCachingImages],
     ];
 
     optionals.forEach(([prop, condition, value]) => {
