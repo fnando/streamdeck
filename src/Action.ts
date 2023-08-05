@@ -2,6 +2,7 @@ import { ActionEvents } from "./events";
 import { State, StateProps } from "./State";
 import { Target } from "./Target";
 import type { Plugin } from "./Plugin";
+import { Encoder } from "./Encoder";
 
 /**
  * The Action must match a few files:
@@ -90,6 +91,21 @@ export class Action<
    */
   public device = "";
 
+  /**
+   * Defines how the action interacts with Dial buttons on the SD+
+   * By default this is not set and actions don't list Encoder as a Controller.
+   * @type {Encoder}
+   */
+  public encoder: Encoder = undefined as unknown as Encoder;
+
+  /**
+   * Defines if the Action is allowed on a KeyPad button.
+   * `true` by default for backwards compatibility.
+   *
+   * @type {boolean}
+   */
+  public keyPad = true;
+
   constructor(params: {
     name: string;
     inspectorName?: string;
@@ -117,6 +133,18 @@ export class Action<
       States: this.states.map((s) => s.toManifest()),
     };
 
+    const controllers: string[] = [];
+
+    if (this.encoder !== undefined) {
+      controllers.push("Encoder");
+    }
+
+    if (this.keyPad === true) {
+      controllers.push("KeyPad");
+    }
+
+    snippet.Controllers = controllers as unknown as string[];
+
     const optionals: [string, unknown, unknown][] = [
       [
         "PropertyInspectorPath",
@@ -129,6 +157,8 @@ export class Action<
         this.hasMultiActionSupport === false,
         this.hasMultiActionSupport,
       ],
+      // ["Controllers", controllers],
+      ["Encoder", this.encoder !== undefined, this.encoder.toManifest()],
     ];
 
     optionals.forEach(([prop, condition, value]) => {
@@ -404,6 +434,36 @@ export class Action<
       context: this.context,
       device: this.device,
       payload: { profile },
+    });
+  }
+
+  /**
+   * Send event to dynamically change properties of the SD+ touch display
+   * @param {Record<string, unknown>} payload Key/Value pairs of properties to
+   *                                          change
+   * @return {void}
+   */
+  public setFeedback(payload: Record<string, unknown>) {
+    this.send({
+      event: "setFeedback",
+      context: this.context,
+      payload,
+    });
+  }
+
+  /**
+   * Send an event to dynamically change the layout of a SD+ touch display
+   * @param {string} layout Internal `id` of built-in layout or path to json
+   *                        file that contains a custom layout
+   * @return {void}
+   */
+  public setFeedbackLayout(layout: string) {
+    this.send({
+      event: "setFeedbackLayout",
+      context: this.context,
+      payload: {
+        layout,
+      },
     });
   }
 }

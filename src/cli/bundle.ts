@@ -2,7 +2,7 @@
 import path from "path";
 import fs from "fs";
 import imageSize from "image-size";
-import glob from "glob";
+import * as glob from "glob";
 import { build } from "esbuild";
 import zipdir from "zip-dir";
 import { Action, Plugin, State } from "..";
