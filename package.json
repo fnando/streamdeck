@@ -1,6 +1,6 @@
 {
   "name": "@fnando/streamdeck",
-  "version": "0.1.0-alpha.5",
+  "version": "0.1.0-alpha.6",
   "engines": {
     "node": ">= 16.x"
   },
@@ -12,9 +12,7 @@
     "CHANGELOG.md"
   ],
   "description": "A lean framework for developing Elgato Stream Deck plugins.",
-  "bin": {
-    "streamdeck": "./bin/cli.js"
-  },
+  "bin": "./bin/cli.js",
   "author": {
     "name": "Nando Vieira",
     "email": "me@fnando.com",

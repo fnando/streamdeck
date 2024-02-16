@@ -13,7 +13,13 @@ Prefix your message with one of the following:
 
 ## Unreleased
 
+- Nothing
+
+## v0.1.0-alpha.6
+
 - [Added] Support for including `previews` images in the bundled plugin
+- [Fixed] Fix Windows symlinking.
+- [Fixed] Glob import.
 
 ## v0.1.0-alpha.5
 
