@@ -2,7 +2,7 @@
 import path from "path";
 import fs from "fs";
 import imageSize from "image-size";
-import glob from "glob";
+import { sync as globSync } from "glob";
 import { build } from "esbuild";
 import zipdir from "zip-dir";
 import { Action, Plugin, State } from "..";
@@ -205,7 +205,7 @@ async function compile(distDir: string, params: Params) {
     `,
   );
 
-  const inspectors = glob.sync(`${sourceDir}/inspectors/*.ts`);
+  const inspectors = globSync(`${sourceDir}/inspectors/*.ts`);
 
   const entryPoints = [
     path.join(sourceDir, "plugin.ts"),
@@ -226,11 +226,11 @@ async function compile(distDir: string, params: Params) {
     },
   });
 
-  glob.sync(`${distDir}/{src,build}/**/*.js`).forEach((filePath) => {
+  globSync(`${distDir}/{src,build}/**/*.js`).forEach((filePath) => {
     fs.renameSync(filePath, path.join(distDir, path.basename(filePath)));
   });
 
-  glob.sync(`${sourceDir}/locales/*.json`).forEach((filePath) => {
+  globSync(`${sourceDir}/locales/*.json`).forEach((filePath) => {
     try {
       const content = JSON.stringify(
         fs.readFileSync(filePath).toString("utf-8"),
@@ -270,14 +270,14 @@ async function compile(distDir: string, params: Params) {
 
   fs.copyFileSync(`${sourceDir}/inspector.html`, `${distDir}/inspector.html`);
 
-  glob.sync(path.join(sourceDir, "inspectors/*.html")).forEach((filePath) => {
+  globSync(path.join(sourceDir, "inspectors/*.html")).forEach((filePath) => {
     fs.copyFileSync(
       filePath,
       `${distDir}/inspectors/${path.basename(filePath)}`,
     );
   });
 
-  const filesToCopy = glob.sync(`${sourceDir}/{images,css,previews}/**/*.*`);
+  const filesToCopy = globSync(`${sourceDir}/{images,css,previews}/**/*.*`);
 
   filesToCopy.sort();
 
