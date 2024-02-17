@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import glob from "glob";
+import { sync as globSync } from "glob";
 
 const sourceDir = path.join(process.cwd(), "src");
 
@@ -19,9 +19,8 @@ const getContentType = (filePath: string): string => {
 export function images() {
   const images = {} as Record<string, string>;
 
-  glob
-    .sync(`${sourceDir}/images/embed/**/*.{png,jpg,gif}`)
-    .forEach((imagePath) => {
+  globSync(`${sourceDir}/images/embed/**/*.{png,jpg,gif}`).forEach(
+    (imagePath) => {
       if (!imagePath.includes("@2x")) {
         return;
       }
@@ -35,7 +34,8 @@ export function images() {
         .replace("@2x", "");
 
       images[name] = dataURL;
-    });
+    },
+  );
 
   fs.writeFileSync(
     path.join(sourceDir, "images.json"),

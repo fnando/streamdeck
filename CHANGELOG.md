@@ -13,7 +13,7 @@ Prefix your message with one of the following:
 
 ## Unreleased
 
-- Nothing
+- [Fixed] Glob reference on images command.
 
 ## v0.1.0-alpha.6
 
